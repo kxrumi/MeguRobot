@@ -1,5 +1,5 @@
-![MeguRobot](https://telegra.ph/file/4645f09a45e70298624d7.jpg)
-# Megu Bot 
+![MeguRobot](https://telegra.ph/file/0f794cec51d316742ca12.jpg)
+# MeguRobot 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://perso.crans.org/besson/LICENSE.html) [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 
 
@@ -7,9 +7,9 @@ Un bot modular de Telegram Python en español que se ejecuta en python3 con una 
 
 Originalmente un fork de SaitamaRobot.
 
-Se puede encontrar en telegram como [Megu](https://t.me/CrimsonMeguRobot).
+Se puede encontrar en telegram como [Megu](https://t.me/MeguRobot).
 
-Puede comunicarse con el grupo de soporte en [Megu Support](https://t.me/MeguSupport), donde puede solicitar ayuda sobre [Megu](https://t.me/CrimsonMeguRobot), descubrir/solicitar nuevas funciones, informar errores y mantenerse informado cuando sea hay una nueva actualización disponible.
+Puede comunicarse con el grupo de soporte en [Megu Support](https://t.me/MeguSupport), donde puede solicitar ayuda sobre [Megu](https://t.me/MeguRobot), descubrir/solicitar nuevas funciones, informar errores y mantenerse informado cuando sea hay una nueva actualización disponible.
 
 ## Cómo configurar/implementar.
 
