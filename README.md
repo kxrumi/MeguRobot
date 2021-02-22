@@ -205,5 +205,5 @@ Este repositorio acaba de renovarse para adaptarse a una comunidad centrada en e
 
 Cualquier otra autoría/créditos se puede ver a través de las confirmaciones.
 
-Si falta alguno, háganoslo saber en [Megu Support](https://t.me/OnePunchSupport) o simplemente envíe una solicitud de extracción en el archivo README.
+Si falta alguno, háganoslo saber en [Megu Support](https://t.me/MeguSupport) o simplemente envíe una solicitud de extracción en el archivo README.
 
