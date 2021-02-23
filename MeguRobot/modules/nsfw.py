@@ -27,12 +27,12 @@ def add_nsfw(update: Update, context: CallbackContext):
         msg.reply_text("Modo NSFW activado!")
         message = (
             f"<b>{html.escape(chat.title)}:</b>\n"
-            f"NSFW_Activado\n"
+            f"#NSFW_Activado\n"
             f"<b>Administrador:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
         )
         return message
     else:
-        msg.reply_text("El modo NSFW ya está activado para este chat !")
+        msg.reply_text("El modo NSFW ya está activado para este chat!")
         return ""
 
 
@@ -52,7 +52,7 @@ def rem_nsfw(update: Update, context: CallbackContext):
         msg.reply_text("Modo NSFW desactivado!")
         message = (
             f"<b>{html.escape(chat.title)}:</b>\n"
-            f"NSFW_Desactivado\n"
+            f"#NSFW_Desactivado\n"
             f"<b>Administrador:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
         )
         return message
@@ -645,8 +645,8 @@ def dva(update, context):
 
 __help__ = """
     
-•`/addnsfw: habilita el modo NSFW
-•`/rmnsfw: deshabilita el modo NSFW
+•`/addnsfw`: Habilita el modo NSFW
+•`/rmnsfw`: Deshabilita el modo NSFW
  
 *Comandos:*
  •`/waifu`: Envía stickers de Waifu al azar.
