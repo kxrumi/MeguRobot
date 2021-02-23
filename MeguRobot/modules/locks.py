@@ -581,8 +581,8 @@ mundo de telegram; el bot los eliminará automáticamente!
  
 Los bloqueos se pueden utilizar para restringir los usuarios de un grupo.
 Por ejemplo:
-El bloqueo de URL eliminará automáticamente todos los mensajes con URL, el bloqueo de pegatinas restringirá todos \
-que los usuarios no administradores envíen pegatinas, etc.
+El bloqueo de URL eliminará automáticamente todos los mensajes con URL, el bloqueo de stickers restringirá todos \
+que los usuarios no administradores envíen stickers, etc.
 El bloqueo de bots evitará que los no administradores agreguen bots al chat.
 
 Nota:

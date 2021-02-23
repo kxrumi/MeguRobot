@@ -505,7 +505,7 @@ def __stats__():
 
 __help__ = """
 Los stickers de lista negra se utiliza para bloquear ciertos stickers. Siempre que se envíe un , el mensaje se eliminará inmediatamente.
-*NOTA:* Las pegatinas de la lista negra no afectan al administrador del grupo.
+*NOTA:* Las stickers de la lista negra no afectan al administrador del grupo.
  administrador: Ver el sticker actual en la lista negra.
 *Solo administrador:*
  •`/addblsticker <enlace de sticker o pack>`: Agrega el disparador de sticker a la lista negra. Se puede agregar repondiendo al sticker.

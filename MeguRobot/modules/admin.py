@@ -398,22 +398,16 @@ def adminlist(update, context):
                     user.id, html.escape(user.first_name + " " + (user.last_name or ""))
                 )
             )
-
-        if user.is_bot:
-            bot_admin_list.append(name)
-            administrators.remove(admin)
-            continue
-
         # if user.username:
         #    name = escape_markdown("@" + user.username)
         if status == "creator":
-            text += "\n 👑 Propietario:"
+            text += "\n👑 <b>Propietario:</b>"
             text += "\n<code> • </code>{}\n".format(name)
 
             if custom_title:
-                text += f"<code> ┗→ {html.escape(custom_title)}</code>\n"
+                text += f"<b>Apodo:</b> <code>{html.escape(custom_title)}</code>\n"
 
-    text += "\n🔱 Administradores:"
+    text += "\n🔱 <b>Administradores:</b>"
 
     custom_admin_list = {}
     normal_admin_list = []
@@ -458,10 +452,6 @@ def adminlist(update, context):
         for admin in custom_admin_list[admin_group]:
             text += "\n<code> • </code>{}".format(admin)
         text += "\n"
-
-    text += "\n🤖 Bots:"
-    for each_bot in bot_admin_list:
-        text += "\n<code> • </code>{}".format(each_bot)
 
     try:
         msg.edit_text(text, parse_mode=ParseMode.HTML)
