@@ -12,8 +12,6 @@ fontTools
 markdown2
 Pillow
 nekos.py
-chatterbot
-chatterbot_corpus
 PyYAML
 requests
 spamwatch
