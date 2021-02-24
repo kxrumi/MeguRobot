@@ -182,6 +182,12 @@ else:
     except ValueError:
         raise Exception("Your blacklisted chats list does not contain valid integers.")
 
+
+BotUsername = ""
+BotID = 0
+BotName = ""
+
+
 SUDO_USERS.add(OWNER_ID)
 DEV_USERS.add(OWNER_ID)
 
