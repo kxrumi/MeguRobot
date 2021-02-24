@@ -233,7 +233,6 @@ async def get_entity(client, entity):
     return entity, entity_client
 
 async def get_bot():
-    global BotID, BotName, BotUsername
     getbot = await pyrogrm.get_me()
     BotID = getbot.id
     BotName = getbot.first_name

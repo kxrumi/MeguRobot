@@ -110,6 +110,6 @@ async def whois(client, message):
         except:
             os.remove(f"./{user.id}.png")
     try:
-        await buscando.delete()
+        buscando.delete()
     except:
-        await buscando.delete()
+        buscando.delete()
