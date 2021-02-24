@@ -21,4 +21,4 @@ handlers = [
 ]
 
 for handler in handlers:
-    megu.add_handler(handler)
+    pyrogrm.add_handler(handler)
