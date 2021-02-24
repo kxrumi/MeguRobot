@@ -46,7 +46,6 @@ async def take_screen_shot(
     return thumb_image_path if os.path.exists(thumb_image_path) else None
 
 
-@pyrogrm.on_message(filters.command("reverse"))
 async def google_rs(client, message):
     start = datetime.now()
     dis_loc = ""

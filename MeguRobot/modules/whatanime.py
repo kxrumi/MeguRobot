@@ -47,7 +47,6 @@ def calculate_eta(current, total, start_time):
     return ", ".join(thing)
 
 
-@pyrogrm.on_message(filters.command("whatanime"))
 async def whatanime(c: Client, m: Message):
     media = m.photo or m.animation or m.video or m.document
     chat_id = m.chat.id

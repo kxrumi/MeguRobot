@@ -13,7 +13,6 @@ heroku_api = "https://api.heroku.com"
 # ================= CONSTANT =================
 
 
-@pyrogrm.on_message(filters.user(DEV_USERS) & filters.command("usage"))
 async def usage(client, message):
     chat_id = message.chat.id
     useragent = (

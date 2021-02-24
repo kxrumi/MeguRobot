@@ -6,7 +6,6 @@ from pyrogram import filters
 from MeguRobot import pyrogrm
 
 
-@pyrogrm.on_message(filters.command("telegraph"))
 async def telegraph(client, message):
     replied = message.reply_to_message
     start_t = datetime.now()

@@ -2,64 +2,71 @@ from datetime import datetime
 
 from pyrogram import Client, filters
 from pyrogram.errors import PeerIdInvalid
-from pyrogram.types import User, Message
+from pyrogram.types import User, Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 from MeguRobot import pyrogrm
 
 
-def ReplyCheck(m: Message):
+def ReplyCheck(message: Message):
     reply_id = None
 
-    if m.reply_to_message:
-        reply_id = m.reply_to_message.message_id
+    if message.reply_to_message:
+        reply_id = message.reply_to_message.message_id
 
-    elif not m.from_user.is_self:
-        reply_id = m.message_id
+    elif not message.from_user.is_self:
+        reply_id = message.message_id
 
     return reply_id
 
 
-infotext = (
-    "**[{full_name}](tg://user?id={user_id})**\n"
-    " • **ID de usuario:** `{user_id}`\n"
-    " • **Nombre:** `{first_name}`\n"
-    " • **Segundo Nombre:** `{last_name}`\n"
-    " • **Alías:** `{username}`\n"
-    " • **Última vez:** `{last_online}`\n"
-    " • **Biografía:** \n__{bio}__"
-)
+WHOIS = (
+    "**Información:**\n\n"
+    "**ID:** `{user_id}`\n"
+    "**Nombre:** [{full_name}](tg://user?id={userid})\n"
+    "**Alias:** `{username}`\n"
+    "**Última vez:** `{last_online}`\n")
+
+WHOIS_PIC = (
+    "**Información:**\n\n"
+    "**ID:** `{user_id}`\n"
+    "**Nombre:** [{full_name}](tg://user?id={userid})\n"
+    "**Alías:** `{username}`\n"
+    "**Última vez:** `{last_online}`\n"
+    "**PFPs:** `{profile_pics}`\n")
 
 
 def LastOnline(user: User):
     if user.is_bot:
         return ""
-    elif user.status == "recently":
+    elif user.status == 'recently':
         return "Recientemente"
-    elif user.status == "within_week":
-        return "Hace una semana"
-    elif user.status == "within_month":
+    elif user.status == 'within_week':
+        return "Hace unas semanas"
+    elif user.status == 'within_month':
         return "Hace un mes"
-    elif user.status == "long_time_ago":
-        return "Hace mucho tiempo :("
-    elif user.status == "online":
+    elif user.status == 'long_time_ago':
+        return "Hace mucho tiempo"
+    elif user.status == 'online':
         return "En línea"
-    elif user.status == "offline":
-        return datetime.fromtimestamp(user.status.date).strftime(
-            "%a, %d %b %Y, %H:%M:%S"
-        )
+    elif user.status == 'offline':
+        return datetime.fromtimestamp(user.status.date).strftime("%a, %d %b %Y, %H:%M:%S")
 
 
 def FullName(user: User):
     return user.first_name + " " + user.last_name if user.last_name else user.first_name
 
 
-@pyrogrm.on_message(filters.command("whois"))
-async def whois(c: Client, m: Message):
-    cmd = m.command
-    if not m.reply_to_message and len(cmd) == 1:
-        get_user = m.from_user.id
+def ProfilePicUpdate(user_pic):
+    return datetime.fromtimestamp(user_pic[0].date).strftime("%d.%m.%Y, %H:%M:%S")
+
+
+async def whois(client, message):
+    buscando = await message.reply_text(text="Buscando...")
+    cmd = message.command
+    if not message.reply_to_message and len(cmd) == 1:
+        get_user = message.from_user.id
     elif len(cmd) == 1:
-        get_user = m.reply_to_message.from_user.id
+        get_user = message.reply_to_message.from_user.id
     elif len(cmd) > 1:
         get_user = cmd[1]
         try:
@@ -67,21 +74,42 @@ async def whois(c: Client, m: Message):
         except ValueError:
             pass
     try:
-        user = await c.get_users(get_user)
+        user = await client.get_users(get_user)
     except PeerIdInvalid:
-        await m.reply("No conozco a ese usuario.")
+        await message.reply("No conozco a este usuario.")
         return
-    desc = await c.get_chat(get_user)
+    desc = await client.get_chat(get_user)
     desc = desc.description
-    await m.reply_text(
-        infotext.format(
-            full_name=FullName(user),
-            user_id=user.id,
-            first_name=user.first_name,
-            last_name=user.last_name if user.last_name else "None",
-            username=user.username if user.username else "None",
-            last_online=LastOnline(user),
-            bio=desc if desc else "`Sin biografía`",
-        ),
-        disable_web_page_preview=True,
-    )
+    user_pic = await client.get_profile_photos(user.id)
+    pic_count = await client.get_profile_photos_count(user.id)
+    if not user.photo:
+        await message.reply(
+            WHOIS.format(
+                user_id=user.id,
+                full_name=FullName(user),
+                userid=user.id,
+                username=user.username if user.username else "`Sin alías`",
+                last_online=LastOnline(user)),
+            disable_web_page_preview=True)
+    else:
+        await client.download_media(user_pic[0],
+                                    file_name=f"./{user.id}.png")
+        await message.reply_document(
+            document=open(f"{user.id}.png", "rb"),
+            caption=WHOIS_PIC.format(
+                user_id=user.id,
+                full_name=FullName(user),
+                userid=user.id,
+                username=user.username if user.username else "`Sin alías`",
+                last_online=LastOnline(user),
+                profile_pics=pic_count,
+                reply_to_message_id=ReplyCheck(message))
+        )
+        try:
+            os.remove(f"./{user.id}.png")
+        except:
+            os.remove(f"./{user.id}.png")
+    try:
+        await buscando.delete()
+    except:
+        await buscando.delete()
