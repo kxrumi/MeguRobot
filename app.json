@@ -26,13 +26,13 @@
       "BAN_STICKER": {
          "description": "ID del sticker que desea usar al banear personas.",
          "required": false,
-         "value": "CAACAgQAAx0CU_rCTAABAczQXyBOv1TsVK4EfwnkCUT1H0GCpyrogrmQAAtwAAwEgTQaYsMtAltpEwhoE"
+         "value": "CAACAgQAAx0CU_rCTAABAczQXyBOv1TsVK4EfwnkCUT1H0GCkPQAAtwAAwEgTQaYsMtAltpEwhoE"
       },
       "SPAMWATCH_API": {
          "description": "Spamwatch API Token - Obten uno en @SpamwatchSupport.",
          "required": true,
          "value": ""
-      },
+      },   
       "INFOPIC": {
          "description": "Mostrar la foto de perfil desde el panel de info de usuario",
          "required": false,
@@ -55,7 +55,7 @@
          "description": "Su postgres sql db, vacíe este campo si no tiene uno.",
          "required": false,
          "value": ""
-      },
+      },      
       "OWNER_ID": {
          "description": "Su ID de usuario como un número entero.",
          "value": "793104432"
@@ -69,7 +69,7 @@
          "required": false,
          "value": ""
       },
-      "GLOBAL_LOGS": {
+      "GBAN_LOGS": {
          "description": "Canal de registro de Gban, incluya también el guión: ej.: -123456",
          "value": ""
       },
@@ -114,7 +114,7 @@
          "description": "El nombre de usuario del chat de tu grupo de soporte de Telegram donde tus usuarios irán y te molestarán con mierda. Pero sé como: @MyGroupChatUsernameBlah. Si esto alguna vez apunta a un grupo de Megu, entonces considera que te hiciste un enemigo.",
          "required": true,
          "value": "@MeguDev"
-      },
+      },   
       "URL": {
          "description": "URL de la app de Heroku:-  https://<appname>.herokuapp.com/",
          "required": false,
@@ -129,21 +129,18 @@
          "description": "No cargues estos módulos porque cagan, separa con espacio",
          "required": false,
          "value": "cleaner rss connection"
-      },
+      }, 
+      "BL_CHATS": {
+         "description": "Lista de chats que desea incluir en la lista negra.",
+         "required": false,
+         "value": ""
+      },      
       "WHITELIST_USERS": {
          "description": "Una lista separada por espacios de los ID de usuario que desea asignar como incluidos en la lista blanca; no se puede prohibir con su bot.",
          "required": false,
          "value": ""
       }
    },
-   "buildpacks": [
-      {
-         "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
-      },
-      {
-         "url": "heroku/python"
-      }
-   ],
    "keywords": [
       "telegram",
       "weeb",
@@ -152,5 +149,5 @@
       "megu"
    ],
    "name": "Megu Bot",
-   "repository": "https://github.com/NachABR/MeguRobot"
+   "repository": "https://github.com/NachABR/MeguBot"
 }

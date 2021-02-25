@@ -1,5 +1,5 @@
 # We're using Debian Slim Buster image
-FROM python:3.9.1-slim-buster
+FROM python:3.8.5-slim-buster
 
 ENV PIP_NO_CACHE_DIR 1
 
@@ -64,12 +64,15 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-# Copy Python Requirements to /root/MeguRobot
-RUN git clone -b dev https://github.com/NachABR/MeguRobot /root/MeguRobot
-WORKDIR /root/MeguRobot
+# Copy Python Requirements to /root/MeguBot
+RUN git clone -b master https://github.com/NachABR/MeguBot /root/MeguBot
+WORKDIR /root/MeguBot
 
-#Copy config file to /root/MeguRobot/MeguRobot
-COPY ./MeguRobot/sample_config.py ./MeguRobot/config.py* /root/MeguRobot/MeguRobot/
+#Copy config file to /root/MeguBot/MeguBot
+COPY ./MeguBot/sample_config.py ./MeguBot/config.py* /root/MeguBot/MeguBot/
+
+#Copy elevated users to /root/MeguBot/MeguBot
+COPY ./MeguBot/elevated_users.json.sample ./MeguBot/elevated_users.json* /root/MeguBot/MeguBot
 
 ENV PATH="/home/bot/bin:$PATH"
 
@@ -77,4 +80,4 @@ ENV PATH="/home/bot/bin:$PATH"
 RUN pip3 install -U -r requirements.txt
 
 # Starting Worker
-CMD ["python3","-m","MeguRobot"]
+CMD ["python3","-m","MeguBot"]

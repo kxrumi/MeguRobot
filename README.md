@@ -1,5 +1,5 @@
-![MeguRobot](https://telegra.ph/file/0f794cec51d316742ca12.jpg)
-# MeguRobot 
+![MeguBot](https://telegra.ph/file/4645f09a45e70298624d7.jpg)
+# Megu Bot 
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://perso.crans.org/besson/LICENSE.html) [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 
 
@@ -7,16 +7,16 @@ Un bot modular de Telegram Python en español que se ejecuta en python3 con una 
 
 Originalmente un fork de SaitamaRobot.
 
-Se puede encontrar en telegram como [Megu](https://t.me/MeguRobot).
+Se puede encontrar en telegram como [Megu](https://t.me/CrimsonMeguBot).
 
-Puede comunicarse con el grupo de soporte en [Megu Support](https://t.me/MeguSupport), donde puede solicitar ayuda sobre [Megu](https://t.me/MeguRobot), descubrir/solicitar nuevas funciones, informar errores y mantenerse informado cuando sea hay una nueva actualización disponible.
+Puede comunicarse con el grupo de soporte en [Megu Support](https://t.me/MeguSupport), donde puede solicitar ayuda sobre [Megu](https://t.me/CrimsonMeguBot), descubrir/solicitar nuevas funciones, informar errores y mantenerse informado cuando sea hay una nueva actualización disponible.
 
 ## Cómo configurar/implementar.
 
 ### Lea estas notas detenidamente antes de continuar
  - Edite cualquier mención de @MeguSupport en su propio chat de soporte.
  - No admitimos bifurcaciones, una vez que bifurque el bot y despliegue el dolor de cabeza de los errores y el soporte sea suyo, no venga a nuestro chat de soporte pidiendo ayuda técnica.
- - Su código debe ser de código abierto y debe haber un enlace al repositorio de su bifurcación en la respuesta de inicio del bot. [Ver esto](https://github.com/NachABR/MeguRobot/blob/f3c76b1c84e14b88a93f3f5a57b4ee748a83c551/MeguRobot/__main__.py#L24)
+ - Su código debe ser de código abierto y debe haber un enlace al repositorio de su bifurcación en la respuesta de inicio del bot. [Ver esto](https://github.com/NachABR/MeguBot/blob/f3c76b1c84e14b88a93f3f5a57b4ee748a83c551/MeguBot/__main__.py#L24)
  - Si viene a nuestro chat de soporte en Telegram pidiendo ayuda sobre una "bifurcación" o un problema técnico con un módulo, terminará siendo ignorado o prohibido.
  - Por último, si se encuentra que ejecuta este repositorio sin que el código sea de código abierto o el enlace del repositorio no se menciona en el bot, le enviaremos una gban en nuestra red debido a una violación de la licencia, puede hacerlo sea un idiota y no respete el código fuente abierto (no nos importa), pero no lo tendremos en nuestros chats.
 <details>
@@ -28,7 +28,7 @@ Ahora vaya a https://dashboard.heroku.com/apps/(app-name)/resources (Reemplace (
 Encienda el dinamómetro del trabajador (no se preocupe, es gratis :D) y Webhook
 Ahora envíe el bot /start. Si no responde, vaya a https://dashboard.heroku.com/apps/(app-name)/settings y elimine el webhook y el puerto.
 ```
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NachABR/MeguRobot.git)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NachABR/MeguBot.git)
 
 </details>
 <details>
@@ -43,7 +43,7 @@ Esto se debe a que el análisis de markdown se realiza iterando a través de un 
 Hay dos formas posibles de configurar su bot: un archivo config.py o variables ENV.
 
 La versión preferida es usar un archivo `config.py`, ya que facilita ver todas las configuraciones agrupadas.
-Este archivo debe colocarse en su carpeta `MeguRobot`, junto con el archivo `__main__.py`.
+Este archivo debe colocarse en su carpeta `MeguBot`, junto con el archivo `__main__.py`.
 Aquí es donde se cargará su token de bot, así como el URI de su base de datos (si está usando una base de datos), y la mayoría de
 sus otras configuraciones.
 
@@ -52,15 +52,15 @@ valores predeterminados establecidos en sample_config, lo que facilita la actual
 
 Un ejemplo de archivo `config.py` podría ser:
 ```
-from MeguRobot.sample_config import Config
+from MeguBot.sample_config import Config
 
 class Development(Config):
     OWNER_ID = 254318997 # Su ID de telegram.
     OWNER_USERNAME = "SonOfLars" # Su nombre de usuario de telegram.
     API_KEY = "your bot api key" # Su clave api, tal como la proporciona @botfather.
     SQLALCHEMY_DATABASE_URI = 'postgresql://nombredeusuario:contraseña@localhost:5432/database' # Credenciales de base de datos de muestra.
-    JOIN_LOGGER = '-1234567890' # Algún chat grupal donde su bot este ahí.
-    USE_JOIN_LOGGER = True
+    MESSAGE_DUMP = '-1234567890' # Algún chat grupal donde su bot este ahí.
+    USE_MESSAGE_DUMP = True
     SUDO_USERS = [18673980, 83489514] # Lista de identificadores de usuarios que tienen acceso superusuario al bot.
     LOAD = []
     NO_LOAD = ['translation']
@@ -75,7 +75,7 @@ Se admiten las siguientes variables de entorno:
  - `OWNER_USERNAME`: Su nombre de usuario
 
  - `DATABASE_URL`: URL de su base de datos
- - `JOIN_LOGGER`: Opcional: Un chat donde se almacenan los registros de entrada del bot.
+ - `MESSAGE_DUMP`: Opcional: Un chat donde se almacenan los registros de entrada del bot.
  - `LOAD`: Lista de módulos separados por espacios que le gustaría cargar
  - `NO_LOAD`: Lista de módulos separados por espacios que le gustaría NO cargar
  - `WEBHOOK`: Configurar esto en CUALQUIER COSA habilitará webhooks cuando esté en modo env
@@ -165,7 +165,7 @@ Todo lo que se necesita es que su archivo .py esté en la carpeta de módulos.
 
 Para agregar comandos, asegúrese de importar el despachador a través de
 
-`from MeguRobot import dispatcher`.
+`from MeguBot import dispatcher`.
 
 Luego puede agregar comandos usando el habitual
 
@@ -185,7 +185,7 @@ a través del comando `/stats`, que solo está disponible para el propietario de
 
 Una vez que haya configurado su base de datos y su configuración esté completa, simplemente ejecute el archivo bat (si está en Windows) o ejecute (Linux):
 
-`python3 -m MeguRobot`
+`python3 -m MeguBot`
 
 Puede usar [nssm](https://nssm.cc/usage) para instalar el bot como servicio en Windows y configurarlo para que se reinicie en /gitpull
 Asegúrese de editar el inicio y reiniciar los murciélagos según sus necesidades.
@@ -195,7 +195,7 @@ Para consultas o cualquier problema relacionado con el bot, abra un ticket de pr
 ## Cómo configurar Heroku
 Para empezar, haga clic en este botón
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NachABR/MeguRobot.git)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/NachABR/MeguBot.git)
 
 
 ## Créditos
@@ -205,5 +205,5 @@ Este repositorio acaba de renovarse para adaptarse a una comunidad centrada en e
 
 Cualquier otra autoría/créditos se puede ver a través de las confirmaciones.
 
-Si falta alguno, háganoslo saber en [Megu Support](https://t.me/MeguSupport) o simplemente envíe una solicitud de extracción en el archivo README.
+Si falta alguno, háganoslo saber en [Megu Support](https://t.me/OnePunchSupport) o simplemente envíe una solicitud de extracción en el archivo README.
 

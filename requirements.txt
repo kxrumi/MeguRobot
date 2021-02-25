@@ -1,7 +1,7 @@
-python-telegram-bot==13.2
+python-telegram-bot==12.8
 telethon
 pyrogram
-aiohttp
+aiohttp[speedups]>=3.7.2
 bleach
 emoji
 future
@@ -11,7 +11,6 @@ psutil
 fontTools
 markdown2
 Pillow
-nekos.py
 PyYAML
 requests
 spamwatch
@@ -21,7 +20,6 @@ bs4
 speedtest-cli
 coffeehouse
 jikanpy
-heroku3
 zalgo-text
 pyrate-limiter
 psycopg2-binary

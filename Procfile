@@ -1,2 +1,2 @@
-worker: python3 -m MeguRobot
+worker: python3 -m MeguBot
 ps:scale worker=1
