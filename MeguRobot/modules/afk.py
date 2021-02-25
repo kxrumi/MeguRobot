@@ -42,6 +42,8 @@ def no_longer_afk(update: Update, context: CallbackContext):
     if not user:  # ignore channels
         return
 
+    user_sql = sql.check_afk_status(user.id)
+    afk_time = get_time(user_sql)
     res = sql.rm_afk(user.id)
     if res:
         if message.new_chat_members:  # dont say msg
@@ -60,8 +62,9 @@ def no_longer_afk(update: Update, context: CallbackContext):
                 "{} está en línea nuevamente ¿Quieres ver unas explosiones?💥",
                 "¿Dónde está {}?\nEn el chat!",
             ]
-            chosen_option = random.choice(options)
-            update.effective_message.reply_text(chosen_option.format(firstname))
+            chosen_option = random.choice(options).format(firstname)
+            output = "{}\nTiempo AFK: {}".format(chosen_option, afk_time)
+            update.effective_message.reply_text(output)
         except:
             return
 
@@ -125,19 +128,7 @@ def reply_afk(update: Update, context: CallbackContext):
 def check_afk(update, context, user_id, fst_name, userc_id):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
-        afk_diff = datetime.now() - user.time_start
-        seconds = afk_diff.seconds
-        minutes = seconds / 60
-        hours = minutes / 60
-        days = afk_diff.days
-        if days:
-            afk_time = "{} dias y {} horas".format(days, hours)
-        elif hours:
-            afk_time = "{} horas y {} minutos".format(hours, minutes)
-        elif minutes:
-            afk_time = "{} minutos y {} segundos".format(minutes, seconds)
-        else:
-            afk_time = "{} segundos".format(seconds)
+        afk_time = get_time(user)
         if not user.reason:
             if int(userc_id) == int(user_id):
                 return
@@ -148,6 +139,23 @@ def check_afk(update, context, user_id, fst_name, userc_id):
                 return
             res = "{} está afk desde hace {}.\nRazón: \n{}".format(fst_name, afk_time, user.reason)
             update.effective_message.reply_text(res)
+
+
+def get_time(user):
+    afk_diff = datetime.now() - user.time_start
+    seconds = afk_diff.seconds
+    minutes = seconds / 60
+    hours = minutes / 60
+    days = afk_diff.days
+    if days:
+        afk_time = "{} dias y {} horas".format(days, hours)
+    elif hours:
+        afk_time = "{} horas y {} minutos".format(hours, minutes)
+    elif minutes:
+        afk_time = "{} minutos y {} segundos".format(minutes, seconds)
+    else:
+        afk_time = "{} segundos".format(seconds)
+    return afk_time
 
 
 __help__ = """
