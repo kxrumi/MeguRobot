@@ -1,4 +1,5 @@
 import random
+from datetime import datetime
 
 from MeguRobot import dispatcher
 from MeguRobot.modules.disable import (
@@ -28,7 +29,8 @@ def afk(update: Update, context: CallbackContext):
     else:
         reason = ""
 
-    sql.set_afk(update.effective_user.id, reason)
+    time_start = datetime.now()
+    sql.set_afk(update.effective_user.id, reason, time_start)
     fname = update.effective_user.first_name
     update.effective_message.reply_text("{} ahora está AFK!{}".format(fname, notice))
 
@@ -123,15 +125,28 @@ def reply_afk(update: Update, context: CallbackContext):
 def check_afk(update, context, user_id, fst_name, userc_id):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
+        afk_diff = datetime.now() - user.time_start
+        seconds = afk_diff.seconds
+        minutes = seconds / 60
+        hours = minutes / 60
+        days = afk_diff.days
+        if days:
+            afk_time = "{} dias y {} horas".format(days, hours)
+        elif hours:
+            afk_time = "{} horas y {} minutos".format(hours, minutes)
+        elif minutes:
+            afk_time = "{} minutos y {} segundos".format(minutes, seconds)
+        else:
+            afk_time = "{} segundos".format(seconds)
         if not user.reason:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} está afk".format(fst_name)
+            res = "{} está afk desde hace {}.".format(fst_name, afk_time)
             update.effective_message.reply_text(res)
         else:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} está afk.\nRazón: \n{}".format(fst_name, user.reason)
+            res = "{} está afk desde hace {}.\nRazón: \n{}".format(fst_name, afk_time, user.reason)
             update.effective_message.reply_text(res)
 
 
