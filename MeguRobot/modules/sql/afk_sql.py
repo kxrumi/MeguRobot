@@ -11,10 +11,11 @@ class AFK(BASE):
     is_afk = Column(Boolean)
     reason = Column(UnicodeText)
 
-    def __init__(self, user_id, reason="", is_afk=True):
+    def __init__(self, user_id, reason="", is_afk=True, time_start=None):
         self.user_id = user_id
         self.reason = reason
         self.is_afk = is_afk
+        self.time_start = time_start
 
     def __repr__(self):
         return "afk_status for {}".format(self.user_id)
@@ -37,11 +38,11 @@ def check_afk_status(user_id):
         SESSION.close()
 
 
-def set_afk(user_id, reason=""):
+def set_afk(user_id, reason="", time_start=None()):
     with INSERTION_LOCK:
         curr = SESSION.query(AFK).get(user_id)
         if not curr:
-            curr = AFK(user_id, reason, True)
+            curr = AFK(user_id, reason, True, time_start)
         else:
             curr.is_afk = True
 
