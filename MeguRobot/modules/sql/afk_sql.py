@@ -1,7 +1,7 @@
 import threading
 
 from MeguRobot.modules.sql import BASE, SESSION
-from sqlalchemy import Boolean, Column, Integer, UnicodeText
+from sqlalchemy import Boolean, Column, Integer, UnicodeText, DateTime
 
 
 class AFK(BASE):
@@ -10,6 +10,7 @@ class AFK(BASE):
     user_id = Column(Integer, primary_key=True)
     is_afk = Column(Boolean)
     reason = Column(UnicodeText)
+    time_start = Column(DateTime)
 
     def __init__(self, user_id, reason="", is_afk=True, time_start=None):
         self.user_id = user_id
