@@ -1,30 +1,31 @@
 import datetime
 import html
 import textwrap
-
 import bs4
 import jikanpy
 import requests
+
+from gpytranslate import Translator
 from MeguRobot import dispatcher
 from MeguRobot.modules.disable import DisableAbleCommandHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext, run_async
 
-info_btn = "More Information"
+info_btn = "Más Información"
 kaizoku_btn = "Kaizoku ☠️"
 kayo_btn = "Kayo 🏴‍☠️"
-prequel_btn = "⬅️ Prequel"
-sequel_btn = "Sequel ➡️"
-close_btn = "Close ❌"
+prequel_btn = "⬅️ Precuela"
+sequel_btn = "Secuela ➡️"
+close_btn = "Cerrar ❌"
 
 
 def shorten(description, info="anilist.co"):
     msg = ""
     if len(description) > 700:
         description = description[0:500] + "...."
-        msg += f"\n*Description*: _{description}_[Read More]({info})"
+        msg += f"\n*Descripción*: _{description}_[Leer Más]({info})"
     else:
-        msg += f"\n*Description*:_{description}_"
+        msg += f"\n*Descripción*: _{description}_"
     return msg
 
 
@@ -223,6 +224,7 @@ def anime(update: Update, context: CallbackContext):
             .replace("</i>", "")
             .replace("<br>", "")
         )
+        description = await translate(description)
         msg += shorten(description, info)
         image = json.get("bannerImage", None)
         if trailer:
@@ -276,6 +278,7 @@ def character(update: Update, context: CallbackContext):
         json = json["data"]["Character"]
         msg = f"*{json.get('name').get('full')}*(`{json.get('name').get('native')}`)\n"
         description = f"{json['description']}"
+        description = await translate(description)
         site_url = json.get("siteUrl")
         msg += shorten(description, site_url)
         image = json.get("image", None)
@@ -533,6 +536,10 @@ def kaizoku(update: Update, context: CallbackContext):
 def kayo(update: Update, context: CallbackContext):
     site_search(update, context, "kayo")
 
+async def translate(text):
+    tr = Translator()
+    teks = await tr(text, targetlang="es")
+    return teks.text
 
 __help__ = """
 Get information about anime, manga or characters from [AniList](anilist.co).
