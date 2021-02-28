@@ -37,3 +37,4 @@ CurrencyConverter
 spongemock
 geopy
 ffmpeg
+gpytranslate
