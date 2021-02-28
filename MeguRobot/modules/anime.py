@@ -166,9 +166,7 @@ def airing(update: Update, context: CallbackContext):
     message = update.effective_message
     search_str = message.text.split(" ", 1)
     if len(search_str) == 1:
-        update.effective_message.reply_text(
-            "Formato: `/airing <nombre del anime>`"
-        )
+        update.effective_message.reply_text("Formato: `/airing <nombre del anime>`")
         return
     variables = {"search": search_str[1]}
     response = requests.post(
@@ -201,11 +199,11 @@ def anime(update: Update, context: CallbackContext):
         return
     if json:
         json = json["data"]["Media"]
-        msg = f"*{json['title']['romaji']}*(`{json['title']['native']}`)\n*Type*: {json['format']}\n*Status*: {json['status']}\n*Episodes*: {json.get('episodes', 'N/A')}\n*Duration*: {json.get('duration', 'N/A')} Per Ep.\n*Score*: {json['averageScore']}\n*Genres*: `"
+        msg = f"*{json['title']['romaji']}*(`{json['title']['native']}`)\n*Tipo*: {json['format']}\n*Estado*: {json['status']}\n*Episodios*: {json.get('episodes', 'N/A')}\n*Duración*: {json.get('duration', 'N/A')} por episodio.\n*Calificación*: {json['averageScore']}\n*Generos*: `"
         for x in json["genres"]:
             msg += f"{x}, "
         msg = msg[:-2] + "`\n"
-        msg += "*Studios*: `"
+        msg += "*Estudios*: `"
         for x in json["studios"]["nodes"]:
             msg += f"{x['name']}, "
         msg = msg[:-2] + "`\n"
@@ -334,10 +332,18 @@ def manga(update: Update, context: CallbackContext):
         for x in json.get("genres", []):
             msg += f"{x}, "
         msg = msg[:-2]
-        info = json["siteUrl"]
         buttons = [[InlineKeyboardButton("Más Información", url=info)]]
         image = json.get("bannerImage", False)
-        msg += f"_{json.get('description', None)}_"
+        description = (
+            json.get("description", "N/A")
+            .replace("<i>", "")
+            .replace("</i>", "")
+            .replace("<br>", "")
+        )
+        description = f"{json['description']}"
+        description = asyncio.run(translate(description))
+        site_url = json.get("siteUrl")
+        msg += shorten(description, site_url)
         if image:
             try:
                 update.effective_message.reply_photo(
