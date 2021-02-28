@@ -4,6 +4,7 @@ import textwrap
 import bs4
 import jikanpy
 import requests
+import asyncio
 
 from gpytranslate import Translator
 from MeguRobot import dispatcher
@@ -224,7 +225,7 @@ def anime(update: Update, context: CallbackContext):
             .replace("</i>", "")
             .replace("<br>", "")
         )
-        description = await translate(description)
+        description = asyncio.run(translate(description))
         msg += shorten(description, info)
         image = json.get("bannerImage", None)
         if trailer:
@@ -278,7 +279,7 @@ def character(update: Update, context: CallbackContext):
         json = json["data"]["Character"]
         msg = f"*{json.get('name').get('full')}*(`{json.get('name').get('native')}`)\n"
         description = f"{json['description']}"
-        description = await translate(description)
+        description = asyncio.run(translate(description))
         site_url = json.get("siteUrl")
         msg += shorten(description, site_url)
         image = json.get("image", None)
