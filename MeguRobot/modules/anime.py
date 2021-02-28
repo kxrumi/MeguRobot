@@ -178,7 +178,7 @@ def airing(update: Update, context: CallbackContext):
         time = t(time)
         msg += f"\n*Episodio*: `{response['nextAiringEpisode']['episode']}`\n*Se transmitirá en*: `{time}`"
     else:
-        msg += f"\n*Episode*:{response['episodes']}\n*Status*: `N/A`"
+        msg += f"\n*Episodio*:{response['episodes']}\n*Estado*: `N/A`"
     update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
@@ -332,6 +332,7 @@ def manga(update: Update, context: CallbackContext):
         for x in json.get("genres", []):
             msg += f"{x}, "
         msg = msg[:-2]
+        info = json.get("siteUrl")
         buttons = [[InlineKeyboardButton("Más Información", url=info)]]
         image = json.get("bannerImage", False)
         description = (
