@@ -396,18 +396,12 @@ Obtén información sobre anime, manga o personajes de [AniList](anilist.co).
 ANIME_HANDLER = DisableAbleCommandHandler("anime", anime, run_async=True)
 AIRING_HANDLER = DisableAbleCommandHandler("airing", airing, run_async=True)
 CHARACTER_HANDLER = DisableAbleCommandHandler("character", character, run_async=True)
-USER_HANDLER = DisableAbleCommandHandler("user", user, run_async=True)
 UPCOMING_HANDLER = DisableAbleCommandHandler("upcoming", upcoming, run_async=True)
-KAIZOKU_SEARCH_HANDLER = DisableAbleCommandHandler("kaizoku", kaizoku, run_async=True)
-KAYO_SEARCH_HANDLER = DisableAbleCommandHandler("kayo", kayo, run_async=True)
 
 dispatcher.add_handler(ANIME_HANDLER)
 dispatcher.add_handler(CHARACTER_HANDLER)
 dispatcher.add_handler(MANGA_HANDLER)
 dispatcher.add_handler(AIRING_HANDLER)
-dispatcher.add_handler(USER_HANDLER)
-dispatcher.add_handler(KAIZOKU_SEARCH_HANDLER)
-dispatcher.add_handler(KAYO_SEARCH_HANDLER)
 dispatcher.add_handler(UPCOMING_HANDLER)
 
 __mod_name__ = "Anime"
@@ -415,19 +409,13 @@ __command_list__ = [
     "anime",
     "manga",
     "character",
-    "user",
     "upcoming",
-    "kaizoku",
     "airing",
-    "kayo",
 ]
 __handlers__ = [
     ANIME_HANDLER,
     CHARACTER_HANDLER,
     MANGA_HANDLER,
-    USER_HANDLER,
     UPCOMING_HANDLER,
-    KAIZOKU_SEARCH_HANDLER,
-    KAYO_SEARCH_HANDLER,
     AIRING_HANDLER,
 ]
