@@ -201,7 +201,8 @@ def anime(update: Update, context: CallbackContext):
         json = json["data"]["Media"]
         msg = f"*{json['title']['romaji']}*(`{json['title']['native']}`)\n*Tipo*: {json['format']}\n*Estado*: {json['status']}\n*Episodios*: {json.get('episodes', 'N/A')}\n*Duración*: {json.get('duration', 'N/A')} por episodio.\n*Calificación*: {json['averageScore']}\n*Generos*: `"
         for x in json["genres"]:
-            msg += f"{x}, "
+            x = asyncio.run(translate(x))
+            msg += f"`{x}`, "
         msg = msg[:-2] + "`\n"
         msg += "*Estudios*: `"
         for x in json["studios"]["nodes"]:
@@ -330,7 +331,8 @@ def manga(update: Update, context: CallbackContext):
             msg += f"\n*Calificación*: `{score}`"
         msg += "\n*Generos*: "
         for x in json.get("genres", []):
-            msg += f"{x}, "
+            x = asyncio.run(translate(x))
+            msg += f"`{x}`, "
         msg = msg[:-2]
         info = json.get("siteUrl")
         buttons = [[InlineKeyboardButton("Más Información", url=info)]]
@@ -341,7 +343,6 @@ def manga(update: Update, context: CallbackContext):
             .replace("</i>", "")
             .replace("<br>", "")
         )
-        description = f"{json['description']}"
         description = asyncio.run(translate(description))
         site_url = json.get("siteUrl")
         msg += shorten(description, site_url)
